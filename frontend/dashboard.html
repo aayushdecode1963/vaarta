@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vaarta - Dashboard</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Top Navbar -->
+    <nav class="navbar">
+        <div class="nav-logo">वार्ता</div>
+        <div class="nav-right">
+            <div class="nav-user">
+                <div class="avatar">R</div>
+                <span>Rahul</span>
+            </div>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main">
+
+        <!-- Left Sidebar — Online Users -->
+        <div class="sidebar">
+            <div class="sidebar-title">🟢 Online Now</div>
+
+            <div class="user-list" id="userList">
+                <!-- Users loaded by JS -->
+                <div class="user-item">
+                    <div class="user-avatar">P</div>
+                    <div class="user-info">
+                        <div class="user-name">Priya Sharma</div>
+                        <div class="user-status online">● Online</div>
+                    </div>
+                    <button class="call-btn" onclick="callUser('Priya')">📹</button>
+                </div>
+
+                <div class="user-item">
+                    <div class="user-avatar">A</div>
+                    <div class="user-info">
+                        <div class="user-name">Amit Verma</div>
+                        <div class="user-status online">● Online</div>
+                    </div>
+                    <button class="call-btn" onclick="callUser('Amit')">📹</button>
+                </div>
+
+                <div class="user-item offline">
+                    <div class="user-avatar">R</div>
+                    <div class="user-info">
+                        <div class="user-name">Rohit Singh</div>
+                        <div class="user-status">● Offline</div>
+                    </div>
+                </div>
+
+                <div class="user-item offline">
+                    <div class="user-avatar">S</div>
+                    <div class="user-info">
+                        <div class="user-name">Sneha Patel</div>
+                        <div class="user-status">● Offline</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right — Main Dashboard -->
+        <div class="content">
+
+            <!-- Welcome Banner -->
+            <div class="welcome-card">
+                <div class="welcome-text">
+                    <h1>Welcome back 👋</h1>
+                    <p>Start a call or wait for someone to join you</p>
+                </div>
+                <div class="welcome-icon">🎥</div>
+            </div>
+
+            <!-- Create Call Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🔗</div>
+                    <div>
+                        <div class="card-title">Start a New Call</div>
+                        <div class="card-sub">Generate a link and share it with anyone</div>
+                    </div>
+                </div>
+
+                <div class="link-box">
+                    <input type="text" class="link-input" id="callLink" readonly placeholder="Click below to generate link">
+                    <button class="copy-btn" onclick="copyLink()" id="copyBtn">Copy</button>
+                </div>
+
+                <button class="create-btn" onclick="createCall()">
+                    🎥 Create New Call
+                </button>
+            </div>
+
+            <!-- Join Call Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🚪</div>
+                    <div>
+                        <div class="card-title">Join a Call</div>
+                        <div class="card-sub">Have a link? Enter it below to join</div>
+                    </div>
+                </div>
+
+                <div class="link-box">
+                    <input type="text" class="link-input" id="joinInput" placeholder="Paste call link here...">
+                    <button class="copy-btn" onclick="joinCall()">Join</button>
+                </div>
+            </div>
+
+            <!-- Recent Calls -->
+            <div class="card">
+                <div class="card-title" style="margin-bottom: 16px;">📋 Recent Calls</div>
+                <div class="recent-list">
+                    <div class="recent-item">
+                        <div class="user-avatar small">P</div>
+                        <div class="user-info">
+                            <div class="user-name">Priya Sharma</div>
+                            <div class="user-status">Today, 2:30 PM • 12 mins</div>
+                        </div>
+                        <button class="call-btn" onclick="callUser('Priya')">📹</button>
+                    </div>
+                    <div class="recent-item">
+                        <div class="user-avatar small">A</div>
+                        <div class="user-info">
+                            <div class="user-name">Amit Verma</div>
+                            <div class="user-status">Yesterday, 6:00 PM • 45 mins</div>
+                        </div>
+                        <button class="call-btn" onclick="callUser('Amit')">📹</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
