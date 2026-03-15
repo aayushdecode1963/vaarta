@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vaarta - Call</title>
+    <link rel="stylesheet" href="css/call.css">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="call-wrapper">
+
+    <!-- LEFT — Video Area -->
+    <div class="video-area">
+
+        <!-- Top Bar -->
+        <div class="topbar">
+            <div class="logo">Vaarta</div>
+            <div class="call-meta">
+                <div class="live-badge">LIVE</div>
+                <div class="timer" id="callTimer">00:00</div>
+            </div>
+            <div class="room-pill">Room: <span id="roomId">...</span></div>
+        </div>
+
+        <!-- Remote Video Rectangle -->
+        <div class="remote-area">
+            <div class="remote-rect" id="remoteRect">
+
+                <!-- Shown when waiting -->
+                <div class="waiting-state" id="waitingState">
+                    <div class="pulse-ring"></div>
+                    <div class="pulse-ring pulse-ring2"></div>
+                    <div class="remote-avatar" id="remoteAvatar">?</div>
+                    <div class="remote-name" id="remoteName">Waiting for someone...</div>
+                    <div class="remote-status">Share the link from dashboard</div>
+                </div>
+
+                <!-- Actual remote video -->
+                <video id="remoteVideo" autoplay playsinline></video>
+
+            </div>
+
+            <!-- Your video — small box corner -->
+            <div class="local-box">
+                <video id="localVideo" autoplay playsinline muted></video>
+                <div class="local-label">You</div>
+            </div>
+        </div>
+
+        <!-- Bottom Controls -->
+        <div class="controls">
+
+            <!-- Mic -->
+            <div class="ctrl-item">
+                <button class="ctrl-circle" id="micBtn" onclick="toggleMic()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                        <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                        <line x1="12" y1="19" x2="12" y2="23"/>
+                        <line x1="8" y1="23" x2="16" y2="23"/>
+                    </svg>
+                </button>
+                <span class="ctrl-label" id="micLabel">Mute</span>
+            </div>
+
+            <!-- Camera -->
+            <div class="ctrl-item">
+                <button class="ctrl-circle" id="camBtn" onclick="toggleCamera()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <polygon points="23 7 16 12 23 17 23 7"/>
+                        <rect x="1" y="5" width="15" height="14" rx="2"/>
+                    </svg>
+                </button>
+                <span class="ctrl-label" id="camLabel">Camera</span>
+            </div>
+
+            <!-- End Call -->
+            <div class="ctrl-item">
+                <button class="ctrl-circle end-btn" onclick="endCall()">
+                    <svg viewBox="0 0 24 24" fill="white">
+                        <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/>
+                    </svg>
+                </button>
+                <span class="ctrl-label">End Call</span>
+            </div>
+
+            <!-- Chat Toggle -->
+            <div class="ctrl-item">
+                <button class="ctrl-circle" id="chatBtn" onclick="toggleChat()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    </svg>
+                </button>
+                <span class="ctrl-label">Chat</span>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- RIGHT — Chat Panel -->
+    <div class="chat-panel" id="chatPanel">
+
+        <div class="chat-header">
+            <div class="chat-title">💬 Chat</div>
+            <button class="chat-close" onclick="toggleChat()">✕</button>
+        </div>
+
+        <div class="chat-messages" id="chatMessages">
+            <div class="msg-system">Call started 👋</div>
+        </div>
+
+        <div class="chat-input-area">
+            <input
+                type="text"
+                class="chat-input"
+                id="chatInput"
+                placeholder="Type a message..."
+                onkeydown="handleKey(event)"
+            >
+            <button class="send-btn" onclick="sendMessage()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+                    <line x1="22" y1="2" x2="11" y2="13" stroke="white" stroke-width="2"/>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2" fill="white"/>
+                </svg>
+            </button>
+        </div>
+
+    </div>
+
+</div>
+
+<script src="js/call.js"></script>
+</body>
+</html>
