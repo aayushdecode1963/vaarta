@@ -11,12 +11,12 @@
 
     <!-- Top Navbar -->
     <nav class="navbar">
-        <div class="nav-logo">वार्ता</div>
+        <div class="nav-logo">Vaarta</div>
         <div class="nav-right">
-            <div class="nav-user">
-                <div class="avatar">R</div>
-                <span>Rahul</span>
-            </div>
+            <a href="profile.html" class="nav-user" style="text-decoration:none;">
+               <div class="avatar">A</div>
+               <span>Aayush</span>
+            </a>
             <button class="logout-btn" onclick="logout()">Logout</button>
         </div>
     </nav>
@@ -95,6 +95,10 @@
 
                 <button class="create-btn" onclick="createCall()">
                     🎥 Create New Call
+                </button>
+
+                <button class="join-own-btn" onclick="goToCall()" id="joinOwnBtn">
+                    → Join Your Call
                 </button>
             </div>
 

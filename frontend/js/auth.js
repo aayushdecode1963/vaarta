@@ -29,7 +29,10 @@ function doLogin() {
     }
 
     // Backend connection comes later
-    showMsg('l-msg', 'Login successful! Backend coming soon 🎉', 'success');
+    showMsg('l-msg', 'Login successful! Redirecting...', 'success');
+    setTimeout( () => {
+        window.location.href = 'dashboard.html'
+    } , 1000) ; 
 }
 
 // Signup function
@@ -48,5 +51,8 @@ function doSignup() {
     }
 
     // Backend connection comes later
-    showMsg('s-msg', 'Account created! Welcome to Vaarta 🚀', 'success');
+    showMsg('s-msg', 'Account created! Redirecting.....', 'success');
+    setTimeout ( () => {
+        window.location.href = 'dashboard.html'
+    } , 1000 ) ;
 }

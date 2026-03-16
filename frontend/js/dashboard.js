@@ -6,9 +6,24 @@ function generateRoomId() {
 // Create a new call
 function createCall() {
     const roomId = generateRoomId();
-    const link = `${window.location.origin}/call.html?room=${roomId}`;
-    document.getElementById('callLink').value = link;
-    document.getElementById('copyBtn').textContent = 'Copy';
+    const link = `call.html?room=${roomId}`;
+
+    // Show link in input
+    document.getElementById('callLink').value = 
+        `${window.location.origin}/call.html?room=${roomId}`;
+
+    // ✅ Also store roomId so we can join it
+    localStorage.setItem('currentRoom', roomId);
+}
+
+// ✅ New function — go to your own created call
+function goToCall() {
+    const roomId = localStorage.getItem('currentRoom');
+    if (!roomId) {
+        alert('Please create a call first!');
+        return;
+    }
+    window.location.href = `call.html?room=${roomId}`;
 }
 
 // Copy link to clipboard
@@ -56,3 +71,6 @@ function logout() {
         window.location.href = 'login.html';
     }
 }
+
+// Clear old room on page load
+localStorage.removeItem('currentRoom');

@@ -56,7 +56,18 @@ function endCall() {
     if (confirm('End the call?')) {
         if (localStream) localStream.getTracks().forEach(t => t.stop());
         clearInterval(timerInterval);
-        window.location.href = 'dashboard.html';
+
+        // Check if user came from a shared link (guest)
+        const cameFromLink = document.referrer === '' || 
+                             !document.referrer.includes('dashboard');
+
+        if (cameFromLink) {
+            // Guest → show simple goodbye page
+            window.location.href = 'goodbye.html';
+        } else {
+            // Logged in user → back to dashboard
+            window.location.href = 'dashboard.html';
+        }
     }
 }
 

@@ -319,6 +319,25 @@ body {
     transform: translateY(0);
 }
 
+/* Join button */
+.join-own-btn {
+    width: 100%;
+    padding: 12px;
+    background: transparent;
+    border: 1px solid #7c6af7;
+    border-radius: 10px;
+    color: #a78bfa;
+    font-size: 14px;
+    font-family: 'Sora', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 8px;
+}
+
+.join-own-btn:hover {
+    background: rgba(124,106,247,0.1);
+}
+
 /* Recent List */
 .recent-list {
     display: flex;
