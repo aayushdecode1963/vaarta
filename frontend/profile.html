@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vaarta - Profile</title>
+    <link rel="stylesheet" href="css/profile.css">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="page-wrapper">
+
+        <!-- Back button -->
+        <a href="dashboard.html" class="back-btn">← Back to Dashboard</a>
+
+        <!-- Profile Card -->
+        <div class="profile-card">
+
+            <!-- Avatar -->
+            <div class="avatar-wrapper">
+                <div class="avatar" id="avatarCircle">A</div>
+                <div class="avatar-edit" onclick="changeAvatar()">✏️</div>
+            </div>
+
+            <!-- Name & Email -->
+            <h2 class="user-name" id="displayName">Aayush</h2>
+            <p class="user-email" id="displayEmail">aayush@email.com</p>
+
+            <!-- Stats Row -->
+            <div class="stats-row">
+                <div class="stat">
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">Calls</div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <div class="stat-number">5</div>
+                    <div class="stat-label">Contacts</div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <div class="stat-number">3h</div>
+                    <div class="stat-label">Talk Time</div>
+                </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="divider"></div>
+
+            <!-- Edit Form — hidden by default -->
+            <div class="edit-form" id="editForm">
+                <div class="input-group">
+                    <label>Full Name</label>
+                    <input type="text" id="nameInput" placeholder="Your name">
+                </div>
+                <div class="input-group">
+                    <label>Email</label>
+                    <input type="email" id="emailInput" placeholder="Your email">
+                </div>
+                <button class="btn-save" onclick="saveProfile()">Save Changes</button>
+                <button class="btn-cancel" onclick="toggleEdit()">Cancel</button>
+            </div>
+
+            <!-- Buttons -->
+            <div class="btn-row" id="btnRow">
+                <button class="btn-edit" onclick="toggleEdit()">✏️ Edit Profile</button>
+                <button class="btn-logout" onclick="logout()">Logout</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="js/profile.js"></script>
+</body>
+</html>
