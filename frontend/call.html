@@ -14,12 +14,16 @@
     <!-- LEFT — Video Area -->
     <div class="video-area">
 
-        <!-- Top Bar -->
         <div class="topbar">
             <div class="logo">Vaarta</div>
             <div class="call-meta">
                 <div class="live-badge">LIVE</div>
                 <div class="timer" id="callTimer">00:00</div>
+                <!-- ✅ Add this -->
+                <div class="call-status">
+                    <span class="status-dot"></span>
+                    <span id="statusText">Connecting...</span>
+                </div>
             </div>
             <div class="room-pill">Room: <span id="roomId">...</span></div>
         </div>
@@ -131,7 +135,11 @@
 
 </div>
 
-<script src="js/call.js"></script>
+<!-- Add socket.io first -->
+<script src="http://localhost:3000/socket.io/socket.io.js"></script>
+
+<!-- Then call.js as module -->
+<script type="module" src="js/call.js"></script>
 <script type="module" src="js/auth-check.js"></script>
 </body>
 </html>
