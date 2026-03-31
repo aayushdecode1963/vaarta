@@ -6,4 +6,4 @@ Real-time chat and video calling web app.
 - Node.js, Express
 - Socket.io
 - WebRTC
-- Firebase auth
+- Firebase authentication
