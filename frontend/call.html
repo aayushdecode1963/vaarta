@@ -136,7 +136,15 @@
 </div>
 
 <!-- Add socket.io first -->
-<script src="http://localhost:3000/socket.io/socket.io.js"></script>
+<script>
+    const BACKEND_URL = window.location.hostname === 'localhost'
+        ? 'http://localhost:3000'
+        : 'https://vaarta-production.up.railway.app';
+</script>
+<script id="socket-script"></script>
+<script>
+    document.getElementById('socket-script').src = BACKEND_URL + '/socket.io/socket.io.js';
+</script>
 
 <!-- Then call.js as module -->
 <script type="module" src="js/call.js"></script>

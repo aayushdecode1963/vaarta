@@ -7,7 +7,11 @@ const roomId = urlParams.get('room') || 'test-room';
 document.getElementById('roomId').textContent = roomId;
 
 // Connect to signaling server
-const socket = io('http://localhost:3000');
+const socket = io(
+    window.location.hostname === 'localhost'
+        ? 'http://localhost:3000'
+        : 'https://vaarta-production.up.railway.app'
+);
 
 // ===== STATE =====
 let localStream = null;
