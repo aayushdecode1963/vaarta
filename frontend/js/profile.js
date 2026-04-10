@@ -74,7 +74,7 @@ function changeAvatar() {
 async function logout() {
     if (confirm('Are you sure you want to logout?')) {
         await signOut(auth);
-        window.location.href = 'login.html';
+        window.location.href = 'index.html';
     }
 }
 

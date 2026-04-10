@@ -27,6 +27,11 @@ app.use(cors({
 
 app.use(express.json());
 
+// Keep Railway alive
+app.get('/ping', (req, res) => {
+    res.send('pong');
+});
+
 // Serve frontend files
 app.use(express.static('../frontend'));
 
@@ -124,3 +129,4 @@ const PORT = process.env.PORT || 3000 ;
 server.listen(PORT, () => {
     console.log(`Vaarta server running on http://localhost:${PORT}`);
 });
+

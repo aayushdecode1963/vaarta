@@ -137,14 +137,19 @@
 
 <!-- Add socket.io first -->
 <script>
-    const BACKEND_URL = window.location.hostname === 'localhost'
+    window.BACKEND_URL = window.location.hostname === 'localhost'
         ? 'http://localhost:3000'
-        : 'https://vaarta-production.up.railway.app';
+        : 'https://your-railway-url.up.railway.app';
 </script>
-<script id="socket-script"></script>
 <script>
-    document.getElementById('socket-script').src = BACKEND_URL + '/socket.io/socket.io.js';
+    var s = document.createElement('script');
+    s.src = window.BACKEND_URL + '/socket.io/socket.io.js';
+    s.onload = function() {
+        console.log('Socket.io loaded ✅');
+    };
+    document.head.appendChild(s);
 </script>
+<script type="module" src="js/call.js"></script>
 
 <!-- Then call.js as module -->
 <script type="module" src="js/call.js"></script>
