@@ -7,10 +7,10 @@ const roomId = urlParams.get('room') || 'test-room';
 document.getElementById('roomId').textContent = roomId;
 
 // Connect to signaling server
-window.BACKEND_URL = window.location.hostname === 'localhost'
+const BACKEND_URL = window.location.hostname === 'localhost'
     ? 'http://localhost:3000'
     : 'https://vaarta-production.up.railway.app';
-const socket = io(window.BACKEND_URL);
+const socket = io(BACKEND_URL);
 
 // ===== STATE =====
 let localStream = null;
