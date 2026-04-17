@@ -3,7 +3,7 @@ import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/
 
 onAuthStateChanged(auth, (user) => {
     if (!user) {
-        window.location.href = 'login.html';
+        window.location.href = 'index.html';
     } else {
         const nameEl = document.getElementById('navUserName');
         const avatarEl = document.getElementById('navAvatar');
@@ -17,6 +17,6 @@ onAuthStateChanged(auth, (user) => {
 window.logout = async function() {
     if (confirm('Are you sure you want to logout?')) {
         await signOut(auth);
-        window.location.href = 'login.html';
+        window.location.href = 'index.html';
     }
 }
