@@ -6,49 +6,51 @@ const cors = require('cors');
 const app = express();
 const server = http.createServer(app);
 
-const io = socketIO(server, {
-    cors: {
-        origin: [
-            'http://localhost:5500',
-            'http://127.0.0.1:5500',
-            'http://localhost:3000',
-            'https://vaarta-sigma.vercel.app'
-        ],
-        methods: ['GET', 'POST'],
-        credentials: true
-    },
-    // ✅ These fix Railway connection issues
-    transports: ['polling', 'websocket'],
-    allowEIO3: true
-});
+// ===== CORS =====
+const allowedOrigins = [
+    'http://localhost:3000',
+    'http://localhost:5500',
+    'http://127.0.0.1:5500',
+    'https://vaarta-sigma.vercel.app'
+];
 
 app.use(cors({
-    origin: [
-        'http://localhost:5500',
-        'http://127.0.0.1:5500',
-        'http://localhost:3000',
-        'https://vaarta-sigma.vercel.app'
-    ],
+    origin: allowedOrigins,
     credentials: true
 }));
 
 app.use(express.json());
-app.use(express.static('../frontend'));
 
-// Keep Railway alive
+// ===== HEALTH CHECK — Railway needs this =====
 app.get('/', (req, res) => {
-    res.send('Vaarta server is running! ✅');
+    res.status(200).json({ 
+        status: 'running',
+        message: 'Vaarta server is live! ✅'
+    });
 });
 
 app.get('/ping', (req, res) => {
-    res.send('pong');
+    res.status(200).send('pong');
+});
+
+// ===== SOCKET.IO =====
+const io = socketIO(server, {
+    cors: {
+        origin: allowedOrigins,
+        methods: ['GET', 'POST'],
+        credentials: true
+    },
+    transports: ['polling', 'websocket'],
+    allowEIO3: true,
+    pingTimeout: 60000,
+    pingInterval: 25000
 });
 
 // ===== ROOMS =====
 const rooms = {};
 
 io.on('connection', (socket) => {
-    console.log('User connected:', socket.id);
+    console.log('✅ User connected:', socket.id);
 
     socket.on('join-room', (roomId) => {
         console.log(`${socket.id} joining room: ${roomId}`);
@@ -69,10 +71,12 @@ io.on('connection', (socket) => {
     });
 
     socket.on('offer', (data) => {
+        console.log('📤 Offer sent to room:', data.roomId);
         socket.to(data.roomId).emit('offer', data.offer);
     });
 
     socket.on('answer', (data) => {
+        console.log('📤 Answer sent to room:', data.roomId);
         socket.to(data.roomId).emit('answer', data.answer);
     });
 
@@ -88,19 +92,32 @@ io.on('connection', (socket) => {
     });
 
     socket.on('disconnect', () => {
-        console.log('User disconnected:', socket.id);
+        console.log('❌ User disconnected:', socket.id);
         const roomId = socket.roomId;
         if (roomId && rooms[roomId]) {
             rooms[roomId] = rooms[roomId].filter(id => id !== socket.id);
             socket.to(roomId).emit('user-left');
             if (rooms[roomId].length === 0) {
                 delete rooms[roomId];
+                console.log(`🗑️ Room ${roomId} deleted`);
             }
         }
     });
 });
 
+// ===== START SERVER =====
 const PORT = process.env.PORT || 3000;
+
+// ✅ 0.0.0.0 is critical for Railway
 server.listen(PORT, '0.0.0.0', () => {
-    console.log(`Vaarta server running on port ${PORT}`);
+    console.log(`🚀 Vaarta server running on port ${PORT}`);
+});
+
+// ===== Handle crashes gracefully =====
+process.on('uncaughtException', (err) => {
+    console.error('Uncaught Exception:', err);
+});
+
+process.on('unhandledRejection', (err) => {
+    console.error('Unhandled Rejection:', err);
 });
