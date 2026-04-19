@@ -6,7 +6,7 @@ const cors = require('cors');
 const app = express();
 const server = http.createServer(app);
 
-// ===== CORS =====
+// ===== ALLOWED ORIGINS =====
 const allowedOrigins = [
     'http://localhost:3000',
     'http://localhost:5500',
@@ -14,6 +14,7 @@ const allowedOrigins = [
     'https://vaarta-sigma.vercel.app'
 ];
 
+// ===== CORS =====
 app.use(cors({
     origin: allowedOrigins,
     credentials: true
@@ -21,9 +22,9 @@ app.use(cors({
 
 app.use(express.json());
 
-// ===== HEALTH CHECK — Railway needs this =====
+// ===== HEALTH CHECK =====
 app.get('/', (req, res) => {
-    res.status(200).json({ 
+    res.status(200).json({
         status: 'running',
         message: 'Vaarta server is live! ✅'
     });
@@ -54,19 +55,25 @@ io.on('connection', (socket) => {
 
     socket.on('join-room', (roomId) => {
         console.log(`${socket.id} joining room: ${roomId}`);
+
         if (!rooms[roomId]) rooms[roomId] = [];
+
         if (rooms[roomId].length >= 2) {
             socket.emit('room-full');
             return;
         }
+
         rooms[roomId].push(socket.id);
         socket.join(roomId);
         socket.roomId = roomId;
+
         const usersInRoom = rooms[roomId].length;
         socket.emit('room-joined', { usersInRoom });
+
         if (usersInRoom === 2) {
             socket.to(roomId).emit('user-joined', socket.id);
         }
+
         console.log(`Room ${roomId} has ${usersInRoom} users`);
     });
 
@@ -108,12 +115,11 @@ io.on('connection', (socket) => {
 // ===== START SERVER =====
 const PORT = process.env.PORT || 3000;
 
-// ✅ 0.0.0.0 is critical for Railway
 server.listen(PORT, '0.0.0.0', () => {
     console.log(`🚀 Vaarta server running on port ${PORT}`);
 });
 
-// ===== Handle crashes gracefully =====
+// ===== HANDLE CRASHES =====
 process.on('uncaughtException', (err) => {
     console.error('Uncaught Exception:', err);
 });
